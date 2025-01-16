@@ -1,0 +1,39 @@
+#!/bin/bash
+if [[ "$1" = *".flatpak" ]]; then
+sudo flatpak install $1
+echo "Reinicie seu sistema para concluir a instalação."
+sleep 10
+elif [[ "$1" = *".AppImage" ]]; then
+chmod +x "$1"
+sudo ./$1
+elif [[ "$1" = *".exe" ]]; then
+sudo wine $1
+elif [[ "$1" = *".msi" ]]; then
+sudo wine msiexec /i $1
+elif [[ "$1" = *".deb" ]]; then
+sudo dpkg -i $1
+elif [[ "$1" = *".tar.gz" ]]; then
+diretorio=$(echo "$1" | cut -d '.' -f 1)
+tar -xvzf $1
+cd $1
+./configure && sudo make && sudo make install && cmake
+echo "Reinicie para concluir a instalação."
+sleep 10
+elif [[ "$1" = *".tar.xz" ]]; then
+diretorio=$(echo "$1" | cut -d '.' -f 1)
+tar -xvf $1
+cd $1
+./configure && sudo make && sudo make install && cmake
+echo "Reinicie para concluir a instalação."
+sleep 10
+elif [[ "$1" = *".tar" ]]; then
+diretorio=$(echo "$1" | cut -d '.' -f 1)
+tar -xvf $1
+cd $1
+./configure && sudo make && sudo make install && cmake
+echo "Reinicie para concluir a instalação."
+sleep 10
+else
+chmod +x $1
+sudo ./$1
+fi
