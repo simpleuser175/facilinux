@@ -1,5 +1,5 @@
 #!/bin/bash
-if [[ "$1" = *".flatpak" ]]; then
+if [[ "$1" = *".flatpakref" ]]; then
 sudo flatpak install $1
 echo "Reinicie seu sistema para concluir a instalação."
 sleep 10
